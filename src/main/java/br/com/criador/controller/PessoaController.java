@@ -12,32 +12,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "api/pessoas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PessoaController {
+    private final PessoaService pessoaService;
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST, value = "/cria")
     public PessoaOutPutDto create(@NonNull @RequestBody final PessoaDto dto){
-        return PessoaService.cria();
+        return pessoaService.cria(dto);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.PUT, value="/edita")
-    public PessoaOutPutDto edit(){
-        return PessoaService.edita();
+    public PessoaOutPutDto edit(@NonNull @RequestBody PessoaDto dto){
+        return pessoaService.edita(dto);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.GET, value= "/consulta")
-    public PessoaOutPutDto get(){
-        return PessoaService.consulta();
+    public PessoaOutPutDto get(@NonNull final long id){
+        return pessoaService.consulta(id);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.GET, value = "/lista")
     public List<PessoaOutPutDto> getList(){
-        return PessoaService.lista();
+        return pessoaService.lista();
     }
 }

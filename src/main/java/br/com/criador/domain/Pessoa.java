@@ -1,9 +1,12 @@
 package br.com.criador.domain;
 
+import br.com.criador.domain.dto.output.EnderecoOutPutDto;
+import br.com.criador.domain.dto.output.PessoaOutPutDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +24,7 @@ import java.util.List;
         @AttributeOverride(name = "updatedAt", column = @Column(name = "upd_pes"))
         })
 @Generated
+@Setter
 public class Pessoa extends EntidadeBase{
 
  @Column(name="nom_pes")
@@ -33,5 +37,20 @@ public class Pessoa extends EntidadeBase{
 @JsonManagedReference
 @JoinColumn(name= "id_end")
 private List<Endereco> endereco;
+
+
+public PessoaOutPutDto toOutPut(){
+  return PessoaOutPutDto.builder()
+            .nome(nome)
+            .dataNascimento(dataNascimento)
+            .enderecos(enderecosToOutPut())
+            .build();
 }
 
+private List<EnderecoOutPutDto> enderecosToOutPut(){
+    List<EnderecoOutPutDto> enderecos = new ArrayList<>();
+    endereco.stream().forEach(o->enderecos.add(o.toOutPut()));
+    return enderecos;
+}
+
+}

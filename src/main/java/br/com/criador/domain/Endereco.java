@@ -1,5 +1,6 @@
 package br.com.criador.domain;
 
+import br.com.criador.domain.dto.output.EnderecoOutPutDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,18 @@ public class Endereco {
 
     @Column(name= "cep_end")
     private int cep;
+    @Column(name= "num_end")
+    private int numero;
 
     @Column(name = "cid_end")
     private String cidade;
+
+    public EnderecoOutPutDto toOutPut(){
+        return EnderecoOutPutDto.builder()
+                .cep(cep)
+                .numero(numero)
+                .logradouro(logradouro)
+                .pessoa(pessoa)
+                .build();
+    }
 }

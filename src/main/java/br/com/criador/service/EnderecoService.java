@@ -1,13 +1,18 @@
 package br.com.criador.service;
 
+import br.com.criador.domain.dto.EnderecoDto;
 import br.com.criador.domain.dto.output.EnderecoOutPutDto;
+import lombok.NonNull;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 public interface EnderecoService {
-    public EnderecoOutPutDto cria();
+    EnderecoOutPutDto cria(@NonNull EnderecoDto dto);
 
-    public EnderecoOutPutDto edita();
+    EnderecoOutPutDto edita(@NonNull @RequestBody final EnderecoDto enderecoDto);
 
-    public EnderecoOutPutDto lista();
+    List<EnderecoOutPutDto> lista();
 
-    public EnderecoOutPutDto setPrincipal();
+    EnderecoOutPutDto setPrincipal();
 }
