@@ -2,7 +2,11 @@ package br.com.criador.domain.dto;
 
 import br.com.criador.domain.Endereco;
 import br.com.criador.domain.Pessoa;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
@@ -10,26 +14,26 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 @Getter
 public class EnderecoDto {
-    private long id;
-    private String logradouro;
+  private long id;
+  private String logradouro;
 
-    private Pessoa pessoa;
+  private Pessoa pessoa;
 
-    private int cep;
+  private int cep;
 
-    private int numero;
+  private int numero;
 
-    private String cidade;
+  private String cidade;
 
-    private boolean principal;
+  private boolean principal;
 
-    public Endereco toObject(){
-        return Endereco.builder()
-                .cep(cep)
-                .numero(numero)
-                .logradouro(logradouro)
-                .pessoa(pessoa)
-                .pricipal(principal)
-                .build();
-    }
+  public Endereco toObject() {
+    return Endereco.builder()
+        .cep(cep)
+        .numero(numero)
+        .logradouro(logradouro)
+        .pessoa(pessoa)
+        .pricipal(principal)
+        .build();
+  }
 }

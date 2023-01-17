@@ -18,30 +18,30 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "api/endereco", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EnderecoController {
-    private final EnderecoService enderecoService;
+  private final EnderecoService enderecoService;
 
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.POST, value = "/cria")
-    public EnderecoOutPutDto createAddress(@NonNull @RequestBody final EnderecoDto dto){
-        return enderecoService.cria(dto);
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.POST, value = "/cria")
+  public EnderecoOutPutDto createAddress(@NonNull @RequestBody final EnderecoDto dto) {
+    return enderecoService.cria(dto);
+  }
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.GET, value = "/lista")
-    public List<EnderecoOutPutDto> list(){
-        return enderecoService.lista();
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.GET, value = "/lista")
+  public List<EnderecoOutPutDto> list() {
+    return enderecoService.lista();
+  }
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.POST, value= "/principal")
-    public EnderecoOutPutDto setMainAddress(){
-        return enderecoService.setPrincipal();
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.POST, value = "/principal")
+  public EnderecoOutPutDto setMainAddress() {
+    return enderecoService.setPrincipal();
+  }
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.POST, value= "/edita")
-    public EnderecoOutPutDto edit(@NonNull @RequestBody final EnderecoDto dto){
-        return enderecoService.edita(dto);
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.POST, value = "/edita")
+  public EnderecoOutPutDto edit(@NonNull @RequestBody final EnderecoDto dto) {
+    return enderecoService.edita(dto);
+  }
 }

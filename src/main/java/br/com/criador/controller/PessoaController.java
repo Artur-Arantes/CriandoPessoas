@@ -18,29 +18,29 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "api/pessoas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PessoaController {
-    private final PessoaService pessoaService;
+  private final PessoaService pessoaService;
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.POST, value = "/cria")
-    public PessoaOutPutDto create(@NonNull @RequestBody final PessoaDto dto){
-        return pessoaService.cria(dto);
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.POST, value = "/cria")
+  public PessoaOutPutDto create(@NonNull @RequestBody final PessoaDto dto) {
+    return pessoaService.cria(dto);
+  }
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.PUT, value="/edita")
-    public PessoaOutPutDto edit(@NonNull @RequestBody PessoaDto dto){
-        return pessoaService.edita(dto);
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.PUT, value = "/edita")
+  public PessoaOutPutDto edit(@NonNull @RequestBody PessoaDto dto) {
+    return pessoaService.edita(dto);
+  }
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.GET, value= "/consulta")
-    public PessoaOutPutDto get(@NonNull final long id){
-        return pessoaService.consulta(id);
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.GET, value = "/consulta")
+  public PessoaOutPutDto get(@NonNull final long id) {
+    return pessoaService.consulta(id);
+  }
 
-    @Transactional
-    @RequestMapping(method = RequestMethod.GET, value = "/lista")
-    public List<PessoaOutPutDto> getList(){
-        return pessoaService.lista();
-    }
+  @Transactional
+  @RequestMapping(method = RequestMethod.GET, value = "/lista")
+  public List<PessoaOutPutDto> getList() {
+    return pessoaService.lista();
+  }
 }

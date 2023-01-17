@@ -15,50 +15,58 @@ import java.util.Optional;
 
 @Service
 public class PessoaServiceImpl implements PessoaService {
-    private  PessoaRepository pessoaRepository;
-    @Override
-    public PessoaOutPutDto cria(@NonNull final PessoaDto pessoaDto) {
-        List<Endereco> endereco = new ArrayList<>();
-        pessoaDto.getEnderecos().stream().forEach(o->o.toObject());
-        final var pessoa = Pessoa.builder()
-                .nome(pessoaDto.getNome())
-                .dataNascimento(pessoaDto.getDataNascimento())
-                .endereco(endereco)
-                .build();
+  private PessoaRepository pessoaRepository;
 
-         pessoaRepository.save(pessoa);
+  @Override
+  public PessoaOutPutDto cria(@NonNull final PessoaDto pessoaDto) {
+    final List<Endereco> enderecos=transformaParaListaEndereco(pessoaDto);
 
-        Optional<Pessoa> retorno= pessoaRepository.findById(pessoa.getId());
-        return retorno.get().toOutPut();
-    }
+    final var pessoa = Pessoa.builder()
+        .nome(pessoaDto.getNome())
+        .dataNascimento(pessoaDto.getDataNascimento())
+        .endereco(enderecos)
+        .build();
 
-    @Override
-    public PessoaOutPutDto edita(@NonNull final PessoaDto pessoaDto) {
-        List<Endereco> endereco = new ArrayList<>();
-        pessoaDto.getEnderecos().stream().forEach(o->o.toObject());
-        Optional<Pessoa> pessoaConsulta=pessoaRepository.findById(pessoaDto.getId());
-         final var pessoa=pessoaConsulta.get();
-         pessoa.setDataNascimento(pessoaDto.getDataNascimento());
-         pessoa.setEndereco(endereco);
-         pessoa.setNome(pessoaDto.getNome());
+    pessoaRepository.save(pessoa);
 
-         pessoaRepository.save(pessoa);
+    Optional<Pessoa> retorno = pessoaRepository.findById(pessoa.getId());
 
-        Optional<Pessoa> retorno= pessoaRepository.findById(pessoa.getId());
-        return retorno.get().toOutPut();
-    }
+    return retorno.get().toOutPut();
+  }
 
-    @Override
-    public PessoaOutPutDto consulta(long id) {
+  @Override
+  public PessoaOutPutDto edita(@NonNull final PessoaDto pessoaDto) {
+    final List<Endereco> enderecos=transformaParaListaEndereco(pessoaDto);
 
-        return pessoaRepository.findById(id).get().toOutPut();
-    }
+    Optional<Pessoa> pessoaConsulta = pessoaRepository.findById(pessoaDto.getId());
 
-    @Override
-    public List<PessoaOutPutDto> lista() {
-        List<PessoaOutPutDto> retorno = new ArrayList<>();
-        Iterable<Pessoa> consulta= pessoaRepository.findAll();
-        consulta.forEach(o -> retorno.add(o.toOutPut()));
-        return retorno;
-    }
+    final var pessoa = pessoaConsulta.get();
+    pessoa.setDataNascimento(pessoaDto.getDataNascimento());
+    pessoa.setEndereco(enderecos);
+    pessoa.setNome(pessoaDto.getNome());
+
+    pessoaRepository.save(pessoa);
+
+    Optional<Pessoa> retorno = pessoaRepository.findById(pessoa.getId());
+    return retorno.get().toOutPut();
+  }
+
+  @Override
+  public PessoaOutPutDto consulta(long id) {
+    return pessoaRepository.findById(id).get().toOutPut();
+  }
+
+  @Override
+  public List<PessoaOutPutDto> lista() {
+    List<PessoaOutPutDto> retorno = new ArrayList<>();
+    Iterable<Pessoa> consulta = pessoaRepository.findAll();
+    consulta.forEach(o -> retorno.add(o.toOutPut()));
+    return retorno;
+  }
+
+  private static List<Endereco> transformaParaListaEndereco(PessoaDto pessoaDto) {
+    List<Endereco> endereco = new ArrayList<>();
+    pessoaDto.getEnderecos().stream().forEach(o -> endereco.add(o.toObject()));
+    return endereco;
+  }
 }
