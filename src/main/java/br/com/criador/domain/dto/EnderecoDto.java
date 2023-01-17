@@ -21,12 +21,15 @@ public class EnderecoDto {
 
     private String cidade;
 
+    private boolean principal;
+
     public Endereco toObject(){
         return Endereco.builder()
                 .cep(cep)
                 .numero(numero)
                 .logradouro(logradouro)
                 .pessoa(pessoa)
+                .pricipal(principal)
                 .build();
     }
 }

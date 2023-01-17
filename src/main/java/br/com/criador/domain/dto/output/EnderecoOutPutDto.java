@@ -25,4 +25,7 @@ public class EnderecoOutPutDto {
     @JsonProperty("numero")
     private int numero;
 
+    @JsonProperty
+    private boolean principal;
+
 }

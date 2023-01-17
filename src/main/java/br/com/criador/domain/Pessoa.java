@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="pessoa")
+@Table(name="PESSOA")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,24 +18,22 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(of="id")
 @AttributeOverrides(value= {
-        @AttributeOverride(name="id", column = @Column(name="id_pes")),
-        @AttributeOverride(name = "version", column = @Column(name = "ver_pes")),
-        @AttributeOverride(name = "createdAt", column = @Column(name = "cre_pes")),
-        @AttributeOverride(name = "updatedAt", column = @Column(name = "upd_pes"))
+        @AttributeOverride(name="id", column = @Column(name="ID_PES")),
+        @AttributeOverride(name = "version", column = @Column(name = "VER_PES")),
+        @AttributeOverride(name = "createdAt", column = @Column(name = "CRE_AT_PES")),
+        @AttributeOverride(name = "updatedAt", column = @Column(name = "UPD_AT_PES"))
         })
 @Generated
 @Setter
 public class Pessoa extends EntidadeBase{
 
- @Column(name="nom_pes")
+ @Column(name="NOM_PES")
  private String nome;
 
- @Column(name="dat_nas")
+ @Column(name="DAT_NAS")
  private String dataNascimento;
 
-@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, targetEntity = Endereco.class)
-@JsonManagedReference
-@JoinColumn(name= "id_end")
+@OneToMany(fetch = FetchType.LAZY, targetEntity = Endereco.class)
 private List<Endereco> endereco;
 
 

@@ -1,6 +1,7 @@
 package br.com.criador.domain;
 
 import br.com.criador.domain.dto.output.EnderecoOutPutDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,25 +12,33 @@ import lombok.*;
 @Getter
 @Builder
 @ToString
+@Setter
 @EqualsAndHashCode(of = "id")
-public class Endereco {
-    @Column(name="id_end")
-    @Generated
-    @Id
-    private Long id;
+@AttributeOverrides(value= {
+        @AttributeOverride(name="id", column = @Column(name="ID_END")),
+        @AttributeOverride(name = "version", column = @Column(name = "VER_END")),
+        @AttributeOverride(name = "createdAt", column = @Column(name = "CRE_AT_END")),
+        @AttributeOverride(name = "updatedAt", column = @Column(name = "UPD_AT_END"))
+})
+public class Endereco extends EntidadeBase{
+
     @OneToOne(fetch = FetchType.EAGER, targetEntity = Pessoa.class)
+    @JsonManagedReference
+    @JoinColumn(name= "ID_PES")
     private Pessoa pessoa;
 
-    @Column(name = "log_end")
+    @Column(name = "LOG_END")
     private String logradouro;
 
-    @Column(name= "cep_end")
+    @Column(name= "CEP_END")
     private int cep;
-    @Column(name= "num_end")
+    @Column(name= "NUM_END")
     private int numero;
 
-    @Column(name = "cid_end")
+    @Column(name = "CID_END")
     private String cidade;
+    @Column(name="PRI_END")
+    private boolean pricipal;
 
     public EnderecoOutPutDto toOutPut(){
         return EnderecoOutPutDto.builder()
@@ -37,6 +46,7 @@ public class Endereco {
                 .numero(numero)
                 .logradouro(logradouro)
                 .pessoa(pessoa)
+                .principal(pricipal)
                 .build();
     }
 }
