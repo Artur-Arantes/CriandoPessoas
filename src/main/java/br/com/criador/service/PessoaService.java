@@ -7,9 +7,11 @@ import lombok.NonNull;
 import java.util.List;
 
 public interface PessoaService {
- PessoaOutPutDto cria(@NonNull final PessoaDto pessoa);
- PessoaOutPutDto edita(@NonNull final PessoaDto pessoa);
+  PessoaOutPutDto cria(@NonNull final PessoaDto pessoa);
 
- PessoaOutPutDto  consulta(long id);
- List<PessoaOutPutDto> lista();
+  PessoaOutPutDto edita(@NonNull final PessoaDto pessoa);
+
+  PessoaOutPutDto consulta(long id);
+
+  List<PessoaOutPutDto> lista();
 }
