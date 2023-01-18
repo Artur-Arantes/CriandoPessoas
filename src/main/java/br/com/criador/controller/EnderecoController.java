@@ -5,6 +5,7 @@ import br.com.criador.domain.dto.output.EnderecoOutPutDto;
 import br.com.criador.service.EnderecoService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "api/endereco", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EnderecoController {
+  @Autowired
   private final EnderecoService enderecoService;
 
 

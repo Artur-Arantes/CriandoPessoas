@@ -5,19 +5,23 @@ import br.com.criador.domain.dto.output.PessoaOutPutDto;
 import br.com.criador.service.PessoaService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "api/pessoas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PessoaController {
+  @Autowired
   private final PessoaService pessoaService;
 
   @Transactional
@@ -34,7 +38,7 @@ public class PessoaController {
 
   @Transactional
   @RequestMapping(method = RequestMethod.GET, value = "/consulta")
-  public PessoaOutPutDto get(@NonNull final long id) {
+  public PessoaOutPutDto get( @RequestParam final long  id) {
     return pessoaService.consulta(id);
   }
 

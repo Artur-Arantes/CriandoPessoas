@@ -2,6 +2,7 @@ package br.com.criador.domain;
 
 import br.com.criador.domain.dto.output.EnderecoOutPutDto;
 import br.com.criador.domain.dto.output.PessoaOutPutDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
@@ -45,7 +46,8 @@ public class Pessoa extends EntidadeBase {
   @Column(name = "DAT_NAS")
   private String dataNascimento;
 
-  @OneToMany(fetch = FetchType.LAZY, targetEntity = Endereco.class)
+  @OneToMany(fetch = FetchType.LAZY, targetEntity = Endereco.class, mappedBy = "pessoa")
+  @JsonBackReference
   private List<Endereco> endereco;
 
 
@@ -58,6 +60,7 @@ public class Pessoa extends EntidadeBase {
   }
 
   private List<EnderecoOutPutDto> enderecosToOutPut() {
+    endereco = new ArrayList<>();
     List<EnderecoOutPutDto> enderecos = new ArrayList<>();
     endereco.stream().forEach(o -> enderecos.add(o.toOutPut()));
     return enderecos;

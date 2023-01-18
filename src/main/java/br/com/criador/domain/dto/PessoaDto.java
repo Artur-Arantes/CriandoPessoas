@@ -22,19 +22,11 @@ public class PessoaDto {
 
   private String dataNascimento;
 
-  private List<EnderecoDto> enderecos;
 
   public Pessoa toObject() {
     return Pessoa.builder()
         .nome(nome)
         .dataNascimento(dataNascimento)
-        .endereco(enderecosToObject())
         .build();
-  }
-
-  private List<Endereco> enderecosToObject() {
-    List<Endereco> endereco = new ArrayList<>();
-    enderecos.stream().forEach(o -> endereco.add(o.toObject()));
-    return endereco;
   }
 }
