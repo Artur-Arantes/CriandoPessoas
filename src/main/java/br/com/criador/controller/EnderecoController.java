@@ -1,49 +1,45 @@
 package br.com.criador.controller;
 
-import br.com.criador.domain.dto.EnderecoDto;
+import br.com.criador.domain.dto.EnderecoCreateDto;
+import br.com.criador.domain.dto.EnderecoEditaDto;
 import br.com.criador.domain.dto.output.EnderecoOutPutDto;
 import br.com.criador.service.EnderecoService;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@RequestMapping(value = "api/enderecos", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 @RestController
-@AllArgsConstructor
-@RequestMapping(value = "api/endereco", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EnderecoController {
-  @Autowired
+
   private final EnderecoService enderecoService;
 
 
-  @Transactional
-  @RequestMapping(method = RequestMethod.POST, value = "/cria")
-  public EnderecoOutPutDto createAddress(@NonNull @RequestBody final EnderecoDto dto) {
+  @RequestMapping(method = RequestMethod.POST, value = "/")
+  public EnderecoOutPutDto create(@Valid @NonNull @RequestBody final EnderecoCreateDto dto) {
     return enderecoService.cria(dto);
   }
 
-  @Transactional
-  @RequestMapping(method = RequestMethod.GET, value = "/lista")
+
+  @RequestMapping(method = RequestMethod.GET, value = "/")
   public List<EnderecoOutPutDto> list() {
     return enderecoService.lista();
   }
 
-  @Transactional
-  @RequestMapping(method = RequestMethod.POST, value = "/principal")
-  public EnderecoOutPutDto setMainAddress() {
-    return enderecoService.setPrincipal();
-  }
 
-  @Transactional
-  @RequestMapping(method = RequestMethod.POST, value = "/edita")
-  public EnderecoOutPutDto edit(@NonNull @RequestBody final EnderecoDto dto) {
-    return enderecoService.edita(dto);
+  @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
+  public EnderecoOutPutDto edit(
+      @NonNull @PathVariable("id") final long id,
+      @NonNull @RequestBody final EnderecoEditaDto dto) {
+    return enderecoService.edita(id, dto);
   }
 }

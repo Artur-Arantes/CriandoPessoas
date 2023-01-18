@@ -1,18 +1,18 @@
-package br.com.criador.domain;
+package br.com.criador.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Version;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Version;
 import java.time.ZonedDateTime;
 
 @MappedSuperclass
@@ -21,7 +21,7 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode(of = "id")
 @Generated
 @ToString
-public class EntidadeBase {
+public abstract class EntidadeBase {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

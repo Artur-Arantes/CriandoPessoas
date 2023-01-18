@@ -1,23 +1,22 @@
-package br.com.criador.domain;
+package br.com.criador.model;
 
 import br.com.criador.domain.dto.output.EnderecoOutPutDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
@@ -27,7 +26,6 @@ import lombok.ToString;
 @Builder
 @ToString
 @Setter
-@EqualsAndHashCode(of = "id")
 @AttributeOverrides(value = {
     @AttributeOverride(name = "id", column = @Column(name = "ID_END")),
     @AttributeOverride(name = "version", column = @Column(name = "VER_END")),
@@ -45,7 +43,7 @@ public class Endereco extends EntidadeBase {
   private String logradouro;
 
   @Column(name = "CEP_END")
-  private int cep;
+  private String cep;
   @Column(name = "NUM_END")
   private int numero;
 
@@ -54,7 +52,11 @@ public class Endereco extends EntidadeBase {
   @Column(name = "PRI_END")
   private boolean pricipal;
 
-  public EnderecoOutPutDto toOutPut() {
+  public Long getPessoaId() {
+    return getPessoa().getId();
+  }
+
+  public EnderecoOutPutDto toOutput() {
     return EnderecoOutPutDto.builder()
         .cep(cep)
         .numero(numero)

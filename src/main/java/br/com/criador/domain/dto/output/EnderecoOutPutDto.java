@@ -1,6 +1,6 @@
 package br.com.criador.domain.dto.output;
 
-import br.com.criador.domain.Pessoa;
+import br.com.criador.model.Pessoa;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class EnderecoOutPutDto {
   @JsonProperty("logradouro")
   private String logradouro;
   @JsonProperty("cep")
-  private int cep;
+  private String cep;
 
   @JsonProperty("numero")
   private int numero;

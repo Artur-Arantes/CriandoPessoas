@@ -1,9 +1,8 @@
 package br.com.criador.service.impl;
 
-import br.com.criador.domain.dto.EnderecoDto;
-import br.com.criador.domain.dto.PessoaDto;
-import br.com.criador.repositories.PessoaRepository;
-import com.electronwill.nightconfig.core.utils.FakeCommentedConfig;
+import br.com.criador.domain.dto.EnderecoCreateDto;
+import br.com.criador.domain.dto.PessoaCreateDto;
+import br.com.criador.repository.PessoaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,8 +29,8 @@ void sucesso(){
 final String dataNascimento="xx/xx/xx";
 final String nome = "Harry";
 
-final var pessoaDto= mock(PessoaDto.class);
-final var enderecoDto= mock(EnderecoDto.class);
+final var pessoaDto= mock(PessoaCreateDto.class);
+final var enderecoDto= mock(EnderecoCreateDto.class);
 when(pessoaDto.getDataNascimento()).thenReturn(dataNascimento);
 when(pessoaDto.getNome()).thenReturn(nome);
 }

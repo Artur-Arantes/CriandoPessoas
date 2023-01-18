@@ -1,25 +1,24 @@
-package br.com.criador.domain;
+package br.com.criador.model;
 
-import br.com.criador.domain.dto.output.EnderecoOutPutDto;
 import br.com.criador.domain.dto.output.PessoaOutPutDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -29,7 +28,6 @@ import java.util.List;
 @Getter
 @Builder
 @ToString(callSuper = true)
-@EqualsAndHashCode(of = "id")
 @AttributeOverrides(value = {
     @AttributeOverride(name = "id", column = @Column(name = "ID_PES")),
     @AttributeOverride(name = "version", column = @Column(name = "VER_PES")),
@@ -44,26 +42,20 @@ public class Pessoa extends EntidadeBase {
   private String nome;
 
   @Column(name = "DAT_NAS")
-  private String dataNascimento;
+  private LocalDate dataNascimento;
 
-  @OneToMany(fetch = FetchType.LAZY, targetEntity = Endereco.class, mappedBy = "pessoa")
+  @OneToMany(fetch = FetchType.LAZY, targetEntity = Endereco.class, mappedBy = "pessoa",
+      cascade = CascadeType.ALL)
   @JsonBackReference
-  private List<Endereco> endereco;
+  private List<Endereco> enderecos;
 
 
-  public PessoaOutPutDto toOutPut() {
+  public PessoaOutPutDto toOutput() {
     return PessoaOutPutDto.builder()
         .nome(nome)
         .dataNascimento(dataNascimento)
-        .enderecos(enderecosToOutPut())
+        .enderecos(enderecos.stream().map(Endereco::toOutput).toList())
         .build();
-  }
-
-  private List<EnderecoOutPutDto> enderecosToOutPut() {
-    endereco = new ArrayList<>();
-    List<EnderecoOutPutDto> enderecos = new ArrayList<>();
-    endereco.stream().forEach(o -> enderecos.add(o.toOutPut()));
-    return enderecos;
   }
 
 }

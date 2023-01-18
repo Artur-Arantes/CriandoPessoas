@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Builder
@@ -24,7 +26,7 @@ public class PessoaOutPutDto {
     private String nome;
 
     @JsonProperty("data_nascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     @JsonProperty("enderecos")
     private List<EnderecoOutPutDto> enderecos;
