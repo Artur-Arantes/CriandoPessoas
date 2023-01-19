@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
   @Modifying(clearAutomatically = true)
   @Query(value = "update ENDERECO set PRI_END=false where ID_PES=:id_pes and ID_END<>:id_end and PRI_END=true",
-  nativeQuery = true)
+      nativeQuery = true)
   void disableOtherMainAddress(@Param("id_pes") final Long idPes, @Param("id_end") final Long idEnd);
 }

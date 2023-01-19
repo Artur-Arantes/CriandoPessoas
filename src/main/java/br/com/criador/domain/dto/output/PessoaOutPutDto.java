@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Builder
@@ -17,17 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class PessoaOutPutDto {
-    @JsonProperty("id")
-    private long id;
+  @JsonProperty("id")
+  private long id;
 
-    @JsonProperty("nome")
-    private String nome;
+  @JsonProperty("nome")
+  private String nome;
 
-    @JsonProperty("data_nascimento")
-    private LocalDate dataNascimento;
+  @JsonProperty("data_nascimento")
+  private LocalDate dataNascimento;
 
-    @JsonProperty("enderecos")
-    private List<EnderecoOutPutDto> enderecos;
+  @JsonProperty("enderecos")
+  private List<EnderecoOutPutDto> enderecos;
 }

@@ -36,4 +36,14 @@ public class ExceptionHandlerConfig {
             .build()
     );
   }
+
+  @ExceptionHandler(EnderecoNotFoundException.class)
+  @ResponseStatus(NOT_FOUND)
+  public List<ErrorMessage> enderecoNotFound(final EnderecoNotFoundException ex) {
+    return singletonList(
+        ErrorMessage.builder()
+            .message("Erro de Consulta generico")
+            .build()
+    );
+  }
 }

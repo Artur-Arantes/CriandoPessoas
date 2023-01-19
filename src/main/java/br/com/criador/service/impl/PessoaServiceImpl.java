@@ -23,7 +23,6 @@ public class PessoaServiceImpl implements PessoaService {
   @Override
   public PessoaOutPutDto cria(@NonNull final PessoaCreateDto pessoaDto) {
 
-
     return pessoaRepository.save(pessoaDto.toObject()).toOutput();
   }
 
@@ -31,7 +30,7 @@ public class PessoaServiceImpl implements PessoaService {
   public PessoaOutPutDto edita(final long id, final PessoaEditDto pessoaDto) {
     return pessoaRepository.findById(id)
         .map(pessoa -> pessoaRepository.save(pessoaDto.setChanges(pessoa)).toOutput())
-        .orElseThrow(RuntimeException::new);
+        .orElseThrow(PessoaNotFoundException::new);
   }
 
   @Override
